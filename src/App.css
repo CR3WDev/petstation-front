@@ -1,0 +1,16 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+.title {
+	font-family: 'Coiny', system-ui;
+	font-weight: 400;
+}
+
+.custom-card {
+	background: #f9fafb;
+	border: 1px solid #e5e7eb;
+	padding: 1.25rem;
+	border-radius: 6px;
+	gap: 0.5rem;
+}
