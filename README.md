@@ -37,6 +37,7 @@ Sistema Simples de Gerenciamento de Pets.
     npm i
     ```
 3. Escolha se vai querer executar localmente ou em produção usando:
+   
    Local
     ```bash
     npm run dev
