@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+# PetStation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema Simples de Gerenciamento de Pets.
 
-Currently, two official plugins are available:
+## Índice
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Requisitos do Sistema](#requisitos-do-sistema)
+- [Tecnologias Front-end](#tecnologias-front-end)
+- [Como Rodar o Front-end](#como-rodar-o-front-end)
+- [Links](#links)
 
-## Expanding the ESLint configuration
+## Requisitos do Sistema
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Sistema de CRUD Paginados e com Filtragem (Categoria e Animais)
+- Documentação via Swagger:
+  - Local: [Swagger Local](http://localhost:8080/swagger-ui/index.html)
+  - Produção: [Swagger Produção](http://ec2-34-210-253-95.us-west-2.compute.amazonaws.com:8080/swagger-ui/index.html)
+- Requisição de Edição de Status de Animal
+- Deploy feito na AWS usando EC2 no back-end e S3 no front-end
 
-- Configure the top-level `parserOptions` property like this:
+## Tecnologias Front-end
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- React-Query
+- Primereact
+- Vite
+- Primeflex
+- Redux
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Como Rodar o Front-end
+
+1. Clone o repositório:
+    ```bash
+    git clone https://github.com/CR3WDev/petstation-front.git
+    ```
+2. Baixe as dependências do projeto dando:
+    ```bash
+    npm i
+    ```
+3. Escolha se vai querer executar localmente ou em produção usando:
+   Local
+    ```bash
+    npm run dev
+    ```
+   Produção
+    ```bash
+    npm run prod
+    ```
+
+## Links
+
+- Link do front-end: [PetStation Front-end](http://petstation.s3-website-us-west-2.amazonaws.com)
+- Link do back-end: [PetStation Back-end](http://ec2-34-210-253-95.us-west-2.compute.amazonaws.com:8080)
