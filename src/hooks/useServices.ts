@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { api } from '@/api/axios';
+import { api, apiFormData } from '@/api/axios';
 import { queryClient } from '@/api/queryClient';
 import { ITableConfig } from '@/interfaces/tableConfig';
 
@@ -29,6 +29,21 @@ export const useService = () => {
 			},
 		});
 	};
+
+	const usePostFormData = <T>(key: string, path: string) => {
+		return useMutation({
+			mutationKey: [key],
+			onSuccess: () => {
+				queryClient.invalidateQueries({
+					queryKey: [key],
+				});
+			},
+			mutationFn: (data: T | any) => {
+				return apiFormData.post<T | any>(path, data);
+			},
+		});
+	};
+
 	const useDelete = (key: string, path: string) => {
 		return useMutation({
 			mutationKey: [key],
@@ -71,6 +86,7 @@ export const useService = () => {
 	return {
 		usePost,
 		useDelete,
+		usePostFormData,
 		useGetTable,
 		usePut,
 		useGet,

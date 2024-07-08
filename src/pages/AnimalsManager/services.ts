@@ -25,3 +25,10 @@ export const putUpdateAnimalStatus = (id?: number, status?: string) => {
 export const getCategoryDropdown = () => {
 	return useService().useGet('getCategoryDropdown', `/category/dropdown`, true);
 };
+
+export const postUploadImage = () => {
+	return useService().usePostFormData('postUploadImage', `/image`);
+};
+export const getImageById = (imageId?: number, enabled?: boolean) => {
+	return useService().useGet('postUploadImage', `/image/${imageId}`, !!enabled);
+};

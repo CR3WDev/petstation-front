@@ -1,4 +1,5 @@
 import { ErrorMessage } from '@/components/ErrorMessage';
+import { FileUploader } from '@/components/FileUploader';
 import { showToastSuccess } from '@/components/GlobalToast';
 import { IAnimal } from '@/interfaces/animal';
 import { selectorMode, setMode } from '@/redux/Reducers/modeReducer';
@@ -15,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
 	getCategoryDropdown,
 	postNewAnimal,
+	postUploadImage,
 	putUpdateAnimal,
 } from '../services';
 
@@ -31,6 +33,7 @@ export const AnimalsManagerForm = ({
 	const {
 		handleSubmit,
 		register,
+		setValue,
 		control,
 		formState: { errors },
 	} = useForm({ defaultValues: rowSelected });
@@ -38,13 +41,13 @@ export const AnimalsManagerForm = ({
 	const { mutateAsync: newAnimal } = postNewAnimal();
 	const { mutateAsync: updateAnimal } = putUpdateAnimal(rowSelected?.id);
 	const { data: categoryDropdown } = getCategoryDropdown();
-
+	const { mutateAsync: uploadImage } = postUploadImage();
 	const handleCreate = (data: IAnimal) => {
 		newAnimal(
 			{
 				name: data.name,
 				description: data.description,
-				imageURL: data.imageURL,
+				imageId: data.imageId,
 				categoryId: data.categoryId,
 				birthdate: data.birthdate,
 				animalStatus: data.animalStatus,
@@ -63,7 +66,7 @@ export const AnimalsManagerForm = ({
 				id: data.id,
 				name: data.name,
 				description: data.description,
-				imageURL: data.imageURL,
+				imageId: data.imageId,
 				categoryId: data.categoryId,
 				birthdate: data.birthdate,
 				animalStatus: data.animalStatus,
@@ -125,18 +128,31 @@ export const AnimalsManagerForm = ({
 				</div>
 				<div className="flex flex-column md:flex-row">
 					<div className="col-12 md:col-6 pb-0">
-						<label className="font-bold">imageURL *</label>
-						<InputText
-							className={classNames('w-full my-1', {
-								'p-invalid': errors.imageURL,
-							})}
-							placeholder={'imageURL *'}
-							id="imageURL"
-							{...register('imageURL', {
-								required: true,
-							})}
+						<label className="font-bold">Status *</label>
+						<Controller
+							name="animalStatus"
+							control={control}
+							render={({ field: { onChange, name, value } }) => {
+								return (
+									<>
+										<Dropdown
+											name={name}
+											className={classNames('w-full my-1', {
+												'p-invalid': errors.animalStatus,
+											})}
+											onChange={(e) => {
+												onChange(e.value);
+											}}
+											placeholder={'Status *'}
+											value={value}
+											options={Object.values(AnimalStatus)}
+											id="animalStatus"
+										/>
+										<ErrorMessage errors={errors.animalStatus} />
+									</>
+								);
+							}}
 						/>
-						<ErrorMessage errors={errors.imageURL} />
 					</div>
 					<div className="col-12 md:col-6 pb-0">
 						<label className="font-bold">Category *</label>
@@ -187,32 +203,16 @@ export const AnimalsManagerForm = ({
 						/>
 						<ErrorMessage errors={errors.birthdate} />
 					</div>
-					<div className="col-12 md:col-6 pb-0">
-						<label className="font-bold">Status *</label>
-						<Controller
-							name="animalStatus"
-							control={control}
-							render={({ field: { onChange, name, value } }) => {
-								return (
-									<>
-										<Dropdown
-											name={name}
-											className={classNames('w-full my-1', {
-												'p-invalid': errors.animalStatus,
-											})}
-											onChange={(e) => {
-												onChange(e.value);
-											}}
-											placeholder={'Status *'}
-											value={value}
-											options={Object.values(AnimalStatus)}
-											id="animalStatus"
-										/>
-										<ErrorMessage errors={errors.animalStatus} />
-									</>
-								);
+				</div>
+				<div className="flex flex-column md:flex-row">
+					<div className="col-12">
+						<FileUploader
+							onSelect={async (e) => {
+								const { data } = await uploadImage({ image: e.files[0] });
+								setValue('imageId', data.id);
 							}}
 						/>
+						<ErrorMessage errors={errors.birthdate} />
 					</div>
 				</div>
 			</div>

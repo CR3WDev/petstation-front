@@ -12,7 +12,7 @@ import { ITableConfig } from '@/interfaces/tableConfig';
 import { CrudTableDefaultActions } from './CrudTableDefaultActions';
 
 type CrudTableProps = {
-	children?: ReactNode;
+	customActions?: (rowSelected: any) => ReactNode;
 	data: any[];
 	columns: IColumnType[];
 	setRowSelected: Dispatch<SetStateAction<any>>;
@@ -26,7 +26,7 @@ type CrudTableProps = {
 export const CrudTable = ({
 	data,
 	columns,
-	children,
+	customActions,
 	tableConfig,
 	setRowSelected,
 	setTableConfig,
@@ -120,8 +120,8 @@ export const CrudTable = ({
 						className="p-2"
 						headerClassName="flex justify-content-center text-center"
 						body={(rowSelected) =>
-							children ? (
-								children
+							customActions ? (
+								customActions(rowSelected)
 							) : (
 								<CrudTableDefaultActions
 									actions={actions}

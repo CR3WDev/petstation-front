@@ -18,12 +18,12 @@ export const Interceptor = ({ children }: InterceptorProps) => {
 				throw new Error(error?.code);
 			}
 
-			const errorResponse: IApiException = error?.response?.data?.ApiException;
+			const errorResponse: IApiException = error?.response?.data;
 
 			if (!errorResponse) {
 				return Promise.reject(error);
 			}
-
+			console.log(errorResponse);
 			if (errorResponse.statusCode >= 400 && errorResponse.statusCode <= 500) {
 				showToastError(errorResponse.message);
 				throw new Error(errorResponse.message);
