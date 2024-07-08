@@ -1,6 +1,6 @@
 import { useDefaultTableConfig } from '@/hooks/useDefaultTableConfig';
 import { IColumnType } from '@/interfaces/column';
-import { ITableConfig, ITableConfigFilters } from '@/interfaces/tableConfig';
+import { ITableConfig } from '@/interfaces/tableConfig';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -25,13 +25,9 @@ export const CrudSearchBar = ({
 	};
 
 	const handleSearch = () => {
-		let filters: ITableConfigFilters[] = [];
-		Object.entries(searchValues).map(([key, value]) => {
-			filters.push({ field: key, op: 'MATCH', value });
-		});
-		if (filters.length === 0) return;
+		if (Object.keys(searchValues).length == 0) return;
 		setTableConfig((prev) => {
-			return { ...prev, filters };
+			return { ...prev, filters: searchValues };
 		});
 	};
 	const handleClearSearch = () => {
@@ -42,7 +38,7 @@ export const CrudSearchBar = ({
 		switch (column.type) {
 			default: {
 				return (
-					<div className={index !== 0 ? 'ml-2' : ''}>
+					<div className={index !== 0 ? 'ml-2' : ''} key={index}>
 						<InputText
 							placeholder={`${column.header}`}
 							value={searchValues[column.field] || ''}

@@ -9,9 +9,7 @@ export const ErrorMessage = ({
 }: ErrorMessageProps): ReactElement | undefined => {
 	if (!errors) return;
 	if (errors?.type === 'required') {
-		return (
-			<span className="p-error">{'Campo Obrigatório Não Preenchido'}</span>
-		);
+		return <span className="p-error">{'Required field not filled'}</span>;
 	}
 	if (errors.type === 'validate') {
 		return <span className="p-error">{errors.message}</span>;

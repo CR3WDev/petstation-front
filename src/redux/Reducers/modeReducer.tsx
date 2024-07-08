@@ -1,20 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IMode } from 'types/mode'
+import { IMode } from '@/interfaces/mode';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: IMode = 'search'
+const initialState: IMode = 'search';
 
 const modeSlice = createSlice({
-  name: 'modeSlice',
-  initialState,
-  reducers: {
-    setMode: (_, { payload }: PayloadAction<any | IMode>) => {
-      return payload
-    },
-  },
-})
+	name: 'modeSlice',
+	initialState,
+	reducers: {
+		setMode: (_, { payload }: PayloadAction<any | IMode>) => {
+			return payload;
+		},
+	},
+});
 
-export default modeSlice.reducer
-export const { setMode } = modeSlice.actions
+export default modeSlice.reducer;
+export const { setMode } = modeSlice.actions;
 export const selectorMode = (state: any) => {
-  return state.modeSlice as IMode
-}
+	return state.modeSlice as IMode;
+};

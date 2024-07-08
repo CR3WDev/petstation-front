@@ -1,5 +1,5 @@
 export interface ITableConfig {
-	filters: ITableConfigFilters[];
+	filters: ITableConfigFilters;
 	sortField: string;
 	sortOrder: 0 | 1 | -1 | null | undefined;
 	page?: number;
@@ -8,7 +8,5 @@ export interface ITableConfig {
 	rows: number;
 }
 export interface ITableConfigFilters {
-	field: string;
-	op: 'MATCH';
-	value: string;
+	[chave: string]: any;
 }

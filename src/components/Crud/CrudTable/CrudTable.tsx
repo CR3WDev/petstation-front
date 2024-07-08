@@ -36,6 +36,22 @@ export const CrudTable = ({
 }: CrudTableProps) => {
 	const customColumns = (column: IColumnType) => {
 		switch (column?.type) {
+			case 'custom': {
+				return (
+					<Column
+						key={column.field}
+						field={column.field}
+						className="p-2"
+						sortable={!column.unsortable}
+						header={column.header}
+						bodyClassName="text-center"
+						alignHeader={'center'}
+						body={(e) => {
+							return column.customColumn && column.customColumn(e);
+						}}
+					/>
+				);
+			}
 			default: {
 				return (
 					<Column
@@ -44,7 +60,7 @@ export const CrudTable = ({
 						field={column.field}
 						header={column.header}
 						alignHeader={'center'}
-						sortable
+						sortable={!column.unsortable}
 						className="p-2"
 					/>
 				);
@@ -100,7 +116,7 @@ export const CrudTable = ({
 					})}
 					<Column
 						field="actions"
-						header="Ações"
+						header="Actions"
 						className="p-2"
 						headerClassName="flex justify-content-center text-center"
 						body={(rowSelected) =>

@@ -26,7 +26,7 @@ const showToastSuccess = (message: string, title?: string) => {
 		getToastRef.current.show({
 			severity: 'success',
 			life: TOAST_EXPIRATION,
-			summary: title || 'Sucesso',
+			summary: title || 'Success',
 			detail: message,
 		});
 };
@@ -36,7 +36,7 @@ const showToastWarn = (message: string, title?: string) => {
 		getToastRef.current.show({
 			severity: 'warn',
 			life: TOAST_EXPIRATION,
-			summary: title || 'Aviso',
+			summary: title || 'Warning',
 			detail: message,
 		});
 };
@@ -45,7 +45,7 @@ const showToastInfo = (message: string, title?: string) => {
 		getToastRef.current.show({
 			severity: 'info',
 			life: TOAST_EXPIRATION,
-			summary: title || 'Informação',
+			summary: title || 'Info',
 			detail: message,
 		});
 };

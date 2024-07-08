@@ -1,0 +1,16 @@
+.globalLoading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(12, 12, 12, 0.7);
+  animation: fadeInOut infinite;
+}
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}

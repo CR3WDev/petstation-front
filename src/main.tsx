@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { Interceptor } from './api/components/interceptor.tsx';
 import { queryClient } from './api/queryClient.ts';
 import App from './App.tsx';
+import { GlobalLoading } from './components/GlobalLoading/GlobalLoading.tsx';
 import { GlobalToast } from './components/GlobalToast.tsx';
 import './index.css';
 import { store } from './redux/store.tsx';
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
+				<GlobalLoading />
 				<Interceptor>
 					<App />
 				</Interceptor>

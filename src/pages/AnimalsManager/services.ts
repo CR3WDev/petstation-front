@@ -14,6 +14,14 @@ export const postNewAnimal = () => {
 export const deleteAnimal = (id?: number) => {
 	return useService().useDelete('getTableAnimals', `/animal/${id}`);
 };
-export const putUpdateAnimal = () => {
-	return useService().usePut('getTableAnimals', `/animal`);
+export const putUpdateAnimal = (id?: number) => {
+	return useService().usePut('getTableAnimals', `/animal/${id}`);
+};
+
+export const putUpdateAnimalStatus = (id?: number, status?: string) => {
+	return useService().usePut('getTableAnimals', `/animal/${id}/${status}`);
+};
+
+export const getCategoryDropdown = () => {
+	return useService().useGet('getCategoryDropdown', `/category/dropdown`, true);
 };

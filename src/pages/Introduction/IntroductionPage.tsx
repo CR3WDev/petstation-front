@@ -1,4 +1,4 @@
-import bgImg from '@/assets/introduction2.png';
+import bgImg from '@/assets/introduction.png';
 
 export const IntroductionPage = () => {
 	return (

@@ -1,84 +1,43 @@
 import { Crud } from '@/components/Crud';
 import { showToastSuccess } from '@/components/GlobalToast';
 import { useDefaultTableConfig } from '@/hooks/useDefaultTableConfig';
-import { IAnimal } from '@/interfaces/animal';
+import { ICategory } from '@/interfaces/category';
 import { ITableConfig } from '@/interfaces/tableConfig';
 import { selectorMode, setMode } from '@/redux/Reducers/modeReducer';
 import { Button } from 'primereact/button';
-import { Checkbox } from 'primereact/checkbox';
 import { Toolbar } from 'primereact/toolbar';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AnimalsManagerForm } from './components/AnimalsManagerForm';
-import {
-	deleteAnimal,
-	getTableAnimals,
-	putUpdateAnimalStatus,
-} from './services';
+import { CategoriesForm } from './components/CategoriesForm';
+import { deleteCategory, getTableCategories } from './services';
 
-export const AnimalsManagerPage = () => {
+export const CategoriesPage = () => {
 	const mode = useSelector(selectorMode);
 	const dispatch = useDispatch();
-	const [rowSelected, setRowSelected] = useState<IAnimal | undefined>();
+	const [rowSelected, setRowSelected] = useState<ICategory | undefined>();
 	const [tableConfig, setTableConfig] = useState<ITableConfig>(
 		useDefaultTableConfig('name')
 	);
-	const { refetch: getAnimals, data } = getTableAnimals(tableConfig);
-	const { mutateAsync: removeAnimal } = deleteAnimal(rowSelected?.id);
+	const { refetch: getCategories, data } = getTableCategories(tableConfig);
+	const { mutateAsync: removeCategory } = deleteCategory(rowSelected?.id);
 
-	const customColumn = (e: IAnimal) => {
-		const newAnimalStatus =
-			e.animalStatus === 'AVALIABLE' ? 'adopted' : 'avaliable';
-		const { mutateAsync: updateAnimalStatus } = putUpdateAnimalStatus(
-			e.id,
-			newAnimalStatus
-		);
-		return (
-			<>
-				<Checkbox
-					onChange={() => {
-						updateAnimalStatus({});
-					}}
-					checked={e.animalStatus === 'AVALIABLE'}
-				></Checkbox>
-			</>
-		);
-	};
-
-	const cols = [
-		{ field: 'name', header: 'Name' },
-		{ field: 'description', header: 'Description' },
-		{ field: 'imageURL', header: 'imageURL' },
-
-		{ field: 'birthdate', header: 'Birthdate' },
-		{
-			field: 'animalStatus',
-			header: 'Status',
-			type: 'custom',
-			customColumn: customColumn,
-		},
-		{ field: 'category', header: 'Category', unsortable: true },
-		{ field: 'age', header: 'Age', unsortable: true },
-	];
-	const colsSearch = [
-		{ field: 'name', header: 'Name' },
-		{ field: 'description', header: 'Description' },
-	];
+	const cols = [{ field: 'name', header: 'Name' }];
+	const colsSearch = [{ field: 'name', header: 'Name' }];
 
 	const handleOnDelete = async (_row: any) => {
-		await removeAnimal().then(() => {
+		await removeCategory().then(() => {
 			showToastSuccess('Operation completed successfully!');
 		});
 	};
 
 	useEffect(() => {
-		getAnimals();
+		getCategories();
 	}, [tableConfig]);
 
 	return (
-		<Crud.Root title={'Animals'} setRowSelected={setRowSelected}>
+		<Crud.Root title={'Categories'} setRowSelected={setRowSelected}>
 			{(mode === 'edit' || mode === 'create') && (
-				<AnimalsManagerForm
+				<CategoriesForm
 					setRowSelected={setRowSelected}
 					rowSelected={rowSelected}
 				/>

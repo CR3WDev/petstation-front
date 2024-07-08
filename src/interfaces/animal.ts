@@ -3,7 +3,7 @@ export interface IAnimal {
 	name: string;
 	description: string;
 	imageURL: string;
-	category: string;
-	dateBirth: string;
+	categoryId: number;
+	birthdate: string;
 	animalStatus: string;
 }

@@ -2,7 +2,7 @@ import { ITableConfig } from '@/interfaces/tableConfig';
 
 export const useDefaultTableConfig = (sortField: string): ITableConfig => {
 	return {
-		filters: [],
+		filters: {},
 		rows: 5,
 		first: 0,
 		sortField,

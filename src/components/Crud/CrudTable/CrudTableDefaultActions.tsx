@@ -62,7 +62,7 @@ export const CrudTableDefaultActions = ({
 								handleDefaultView(rowSelected);
 							}}
 						>
-							<MdVisibility className="mr-2" size="20" /> Visualizar
+							<MdVisibility className="mr-2" size="20" /> View
 						</Button>
 					</div>
 				)}
@@ -76,7 +76,7 @@ export const CrudTableDefaultActions = ({
 							}}
 						>
 							<MdCreate className="mr-2" size="20" />
-							Editar
+							Edit
 						</Button>
 					</div>
 				)}
@@ -89,7 +89,7 @@ export const CrudTableDefaultActions = ({
 								handleDefaultDelete(rowSelected);
 							}}
 						>
-							<MdClose className="mr-2" size="20" /> Deletar
+							<MdClose className="mr-2" size="20" /> Delete
 						</Button>
 					</div>
 				)}
