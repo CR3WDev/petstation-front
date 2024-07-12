@@ -27,7 +27,7 @@ export const CategoriesForm = ({
 	} = useForm({ defaultValues: rowSelected });
 
 	const { mutateAsync: newCategory } = postNewCategory();
-	const { mutateAsync: updateCategory } = putUpdateCategory(rowSelected?.id);
+	const { mutateAsync: updateCategory } = putUpdateCategory();
 
 	const handleCreate = (data: ICategory) => {
 		newCategory(

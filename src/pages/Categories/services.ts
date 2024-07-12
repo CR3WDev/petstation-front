@@ -14,6 +14,6 @@ export const postNewCategory = () => {
 export const deleteCategory = (id?: number) => {
 	return useService().useDelete('getTableCategories', `/category/${id}`);
 };
-export const putUpdateCategory = (id?: number) => {
+export const putUpdateCategory = () => {
 	return useService().usePut('getTableCategories', `/category`);
 };
