@@ -11,9 +11,10 @@ import { useRef, useState } from 'react';
 import { MdClose, MdImage } from 'react-icons/md';
 
 interface FileUploaderProps {
+	onRemove?: () => void;
 	onSelect: (e: FileUploadSelectEvent) => Promise<void>;
 }
-export const FileUploader = ({ onSelect }: FileUploaderProps) => {
+export const FileUploader = ({ onSelect, onRemove }: FileUploaderProps) => {
 	const [totalSize, setTotalSize] = useState(0);
 	const fileUploadRef = useRef<FileUpload>(null);
 
@@ -24,7 +25,7 @@ export const FileUploader = ({ onSelect }: FileUploaderProps) => {
 		Object.keys(files).forEach((key: any) => {
 			_totalSize += files[key].size || 0;
 		});
-
+		if (files.length <= 0) return;
 		onSelect(e).then(() => {
 			setTotalSize(_totalSize);
 		});
@@ -36,6 +37,9 @@ export const FileUploader = ({ onSelect }: FileUploaderProps) => {
 	};
 
 	const onTemplateClear = () => {
+		{
+			onRemove && onRemove();
+		}
 		setTotalSize(0);
 	};
 
@@ -124,7 +128,7 @@ export const FileUploader = ({ onSelect }: FileUploaderProps) => {
 				ref={fileUploadRef}
 				name="demo[]"
 				url="/api/upload"
-				accept="image/*"
+				accept=".jpg, .png"
 				maxFileSize={1000000}
 				onSelect={onTemplateSelect}
 				onError={onTemplateClear}

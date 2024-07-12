@@ -14,8 +14,8 @@ export const postNewAnimal = () => {
 export const deleteAnimal = (id?: number) => {
 	return useService().useDelete('getTableAnimals', `/animal/${id}`);
 };
-export const putUpdateAnimal = (id?: number) => {
-	return useService().usePut('getTableAnimals', `/animal/${id}`);
+export const putUpdateAnimal = () => {
+	return useService().usePut('getTableAnimals', `/animal`);
 };
 
 export const putUpdateAnimalStatus = (id?: number, status?: string) => {

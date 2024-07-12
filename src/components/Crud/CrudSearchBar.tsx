@@ -32,7 +32,7 @@ export const CrudSearchBar = ({
 	};
 	const handleClearSearch = () => {
 		setSearchValues({});
-		setTableConfig(useDefaultTableConfig(columns[0].field));
+		setTableConfig(useDefaultTableConfig('id'));
 	};
 	const renderSearchFields = (column: IColumnType, index: number) => {
 		switch (column.type) {

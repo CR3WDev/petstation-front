@@ -16,7 +16,7 @@ export const CategoriesPage = () => {
 	const dispatch = useDispatch();
 	const [rowSelected, setRowSelected] = useState<ICategory | undefined>();
 	const [tableConfig, setTableConfig] = useState<ITableConfig>(
-		useDefaultTableConfig('name')
+		useDefaultTableConfig('id')
 	);
 	const { refetch: getCategories, data } = getTableCategories(tableConfig);
 	const { mutateAsync: removeCategory } = deleteCategory(rowSelected?.id);

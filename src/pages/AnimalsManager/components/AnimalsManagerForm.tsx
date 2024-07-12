@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@/components/ErrorMessage';
 import { FileUploader } from '@/components/FileUploader';
-import { showToastSuccess } from '@/components/GlobalToast';
+import { showToastError, showToastSuccess } from '@/components/GlobalToast';
 import { IAnimal } from '@/interfaces/animal';
 import { selectorMode, setMode } from '@/redux/Reducers/modeReducer';
 import { AnimalStatus } from '@/utils/enums/animalStatus';
@@ -39,10 +39,15 @@ export const AnimalsManagerForm = ({
 	} = useForm({ defaultValues: rowSelected });
 
 	const { mutateAsync: newAnimal } = postNewAnimal();
-	const { mutateAsync: updateAnimal } = putUpdateAnimal(rowSelected?.id);
+	const { mutateAsync: updateAnimal } = putUpdateAnimal();
 	const { data: categoryDropdown } = getCategoryDropdown();
 	const { mutateAsync: uploadImage } = postUploadImage();
+
 	const handleCreate = (data: IAnimal) => {
+		if (!data?.imageId || data?.imageId == 0) {
+			showToastError('Please use a valid Image!');
+			return;
+		}
 		newAnimal(
 			{
 				name: data.name,
@@ -61,6 +66,10 @@ export const AnimalsManagerForm = ({
 		);
 	};
 	const handleUpdate = (data: any) => {
+		if (!data?.imageId || data?.imageId == 0) {
+			showToastError('Please use a valid Image!');
+			return;
+		}
 		updateAnimal(
 			{
 				id: data.id,
@@ -131,6 +140,7 @@ export const AnimalsManagerForm = ({
 						<label className="font-bold">Status *</label>
 						<Controller
 							name="animalStatus"
+							rules={{ required: true }}
 							control={control}
 							render={({ field: { onChange, name, value } }) => {
 								return (
@@ -158,6 +168,7 @@ export const AnimalsManagerForm = ({
 						<label className="font-bold">Category *</label>
 						<Controller
 							name="categoryId"
+							rules={{ required: true }}
 							control={control}
 							render={({ field: { onChange, name, value } }) => {
 								return (
@@ -207,12 +218,14 @@ export const AnimalsManagerForm = ({
 				<div className="flex flex-column md:flex-row">
 					<div className="col-12">
 						<FileUploader
+							onRemove={async () => {
+								setValue('imageId', 0);
+							}}
 							onSelect={async (e) => {
 								const { data } = await uploadImage({ image: e.files[0] });
 								setValue('imageId', data.id);
 							}}
 						/>
-						<ErrorMessage errors={errors.birthdate} />
 					</div>
 				</div>
 			</div>

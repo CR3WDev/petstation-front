@@ -25,7 +25,7 @@ export const AnimalsManagerPage = () => {
 	const [rowSelected, setRowSelected] = useState<IAnimal | undefined>();
 	const [showView, setShowView] = useState(false);
 	const [tableConfig, setTableConfig] = useState<ITableConfig>(
-		useDefaultTableConfig('name')
+		useDefaultTableConfig('id')
 	);
 	const { refetch: getAnimals, data } = getTableAnimals(tableConfig);
 	const { mutateAsync: removeAnimal } = deleteAnimal(rowSelected?.id);
